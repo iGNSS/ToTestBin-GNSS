@@ -26,9 +26,17 @@ public:
 	NovatelGnssData				gnssN;			//Novatel协议GNSS数据
 	TxtDmiData					dmiT;			//txt文件DMI数据
 	TestBinData					testBin;
-	
+
+	int							imuEnable;
+	int							gnssEnable;
+	int							dmiEnable;
+	int							outEnable;
+
 	ProcessNNT();
-	ProcessNNT(string imuNovatelFile, string gnssNovatelFile, string dmiTxtFile, string testBinFile);
+	ProcessNNT(string imuNovatelFile,int imuEn,
+				string gnssNovatelFile, int gnssEn,
+				string dmiTxtFile,  int dmiEn,
+				string testBinFile, int outEn);
 	~ProcessNNT();
 	int Process();
 

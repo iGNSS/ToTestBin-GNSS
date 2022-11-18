@@ -27,7 +27,7 @@ int funNNN()
 	//第1个N代表IMU使用Novatel的数据格式,若为T，代表txt文件
 	//第2个N代表GNSS使用Novatel的数据格式,若为T，代表txt文件
 	//第3个n代表DMI使用Novatel的数据格式,若为T，代表txt文件
-	ProcessNNN NNN(imuNovatelFile, gnssNovatelFile, dmiNovatelFile, testBinFile);
+	ProcessNNN NNN(imuNovatelFile, 1, gnssNovatelFile, 1, dmiNovatelFile, 1, testBinFile, 1);
 	NNN.Process();
 
 	return 0;
@@ -40,7 +40,7 @@ int funNNT()
 	string dmiNovatelFile = "D:\\IE\\Group1\\data\\NMND22180012G_2022-08-15_09-51-21.dmr.txt";
 	string testBinFile = "D:\\IE\\Group1\\data\\NMND22180012G_2022-08-15_09-51-21.testbin.txt";
 
-	ProcessNNT NNT(imuNovatelFile, gnssNovatelFile, dmiNovatelFile, testBinFile);
+	ProcessNNT NNT(imuNovatelFile, 1, gnssNovatelFile, 1, dmiNovatelFile, 1, testBinFile, 1);
 	NNT.Process();
 	return 0;
 }
@@ -53,7 +53,7 @@ int funNTN()
 	string dmiTxtFile = "D:\\IE\\Group1\\data\\NMND22180012G_2022-08-15_09-51-21.LOG";
 	string testBinFile = "D:\\IE\\Group1\\data\\NMND22180012G_2022-08-15_09-51-21.testbin.txt";
 
-	ProcessNTN NTN(imuNovatelFile, gnssTxtFile, dmiTxtFile, testBinFile);
+	ProcessNTN NTN(imuNovatelFile, 1,  gnssTxtFile, 1,  dmiTxtFile, 1,  testBinFile, 1);
 	NTN.Process();
 	return 0;
 }
@@ -78,7 +78,7 @@ int funOther()
 
 int main()
 {
-	NT_Slect nt = NTT;
+	NT_Slect nt = NNT;
 	switch (nt)
 	{
 	case NNN:
@@ -105,6 +105,6 @@ int main()
 	}
 
 	cout << "Hello TestBin!!!" << endl;
-	std::cin.ignore();
+	//std::cin.ignore();
 	return 0;
 }

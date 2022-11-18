@@ -41,11 +41,8 @@ int TxtDmiData::GetData()
 	if (!opened)
 		return 1;
 
-	if (fs.eof())
-		return 1;
-
 	getline(fs, line);
-	if (strlen(line.c_str()) <= 5)
+	if (fs.eof())
 		return 1;
 
 	vector<double>  dd;
@@ -55,6 +52,9 @@ int TxtDmiData::GetData()
 	{
 		dd.push_back(std::atof(word.c_str()));
 	}
+
+	if (dd.size() <= 1)
+		return 1;
 
 	time = dd[0];
 	if (dd.size() == 2)

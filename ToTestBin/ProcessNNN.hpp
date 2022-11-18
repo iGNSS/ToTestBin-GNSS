@@ -26,8 +26,16 @@ public:
 	NovatelDmiData				dmiN;			//txt文件DMI数据
 	TestBinData					testBin;
 
+	int							imuEnable;
+	int							gnssEnable;
+	int							dmiEnable;
+	int							outEnable;
+
 	ProcessNNN();
-	ProcessNNN(string imuNovatelFile, string gnssNovatelFile, string dmiNovatelFile, string testBinFile);
+	ProcessNNN(string imuNovatelFile,int imuEn,
+				string gnssNovatelFile, int gnssEn,
+				string dmiNovatelFile,  int dmiEn,
+				string testBinFile, int outEn);
 	~ProcessNNN();
 	int Process();
 

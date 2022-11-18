@@ -7,12 +7,19 @@ ProcessNNT::ProcessNNT()
 {
 }
 
-ProcessNNT::ProcessNNT(string imuNovatelFile, string gnssNovatelFile, string dmiTxtFile, string testBinFile)
+ProcessNNT::ProcessNNT(string imuNovatelFile, int imuEn,
+						string gnssNovatelFile, int gnssEn,
+						string dmiTxtFile, int dmiEn,
+						string testBinFile, int outEn)
 {
 	imuN.file = imuNovatelFile;
 	gnssN.file = gnssNovatelFile;
 	dmiT.file = dmiTxtFile;
 	testBin.file = testBinFile;
+	imuEnable = imuEn;
+	gnssEnable = gnssEn;
+	dmiEnable = dmiEn;
+	outEnable = outEn;
 }
 
 ProcessNNT::~ProcessNNT()
@@ -68,10 +75,11 @@ int ProcessNNT::Process()
 		memset(&testBin.data, 0, sizeof(TestBinUnit));
 
 		//IMU数据赋给TESTBIN
-		testBin.GetNovatelImu(imuN);
+		if(imuEnable)
+			testBin.GetNovatelImu(imuN);
 
 		//GNSS数据赋给TESTBIN
-		if ((sec1 <= testBin.sec0) && (sec1 > testBin.sec1))
+		if (gnssEnable && (sec1 <= testBin.sec0) && (sec1 > testBin.sec1))
 		{
 			testBin.GetNovatelGnss(gnssN);
 			needRead[1] = 1;
@@ -79,12 +87,20 @@ int ProcessNNT::Process()
 		}
 
 		//DMI数据赋给TESTBIN
-		if ((sec2 <= testBin.sec0) && (sec2 > testBin.sec1))
+		if (dmiEnable && (sec2 <= testBin.sec0) && (sec2 > testBin.sec1))
 		{
 			testBin.GetTxtDmi(dmiT);
 //			cout << fixed << setprecision(3) << imuN.sec[0] << "   " << setprecision(3) << sec1 << endl;
 			needRead[2] = 1;
 		}
+		//if (testBin.sec0 < 116282)
+		//	outEnable = 0;
+
+		//输出数据到TestBin
+		testBin.imuOutEnable = imuEnable;
+		testBin.gnssOutEnable = gnssEnable;
+		testBin.dmiOutEnable = dmiEnable;
+		if(outEnable)
 		testBin.WriteData();
 	}
 
