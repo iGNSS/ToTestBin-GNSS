@@ -71,7 +71,7 @@ int ProcessNNT::Process()
 
 		//IMU数据时间
 		double sec1 = gnssN.bestPos.ms * 0.001;
-		double sec2 = dmiT.time;
+		double sec2 = dmiT.time[0];
 
 		memset(&testBin.data, 0, sizeof(TestBinUnit));
 

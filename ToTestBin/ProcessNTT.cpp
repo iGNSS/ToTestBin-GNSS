@@ -70,7 +70,7 @@ int ProcessNTT::Process()
 
 		////IMU数据时间
 		double sec1 = gnssT.sec;
-		double sec2 = dmiT.time;
+		double sec2 = dmiT.time[0];
 
 		memset(&testBin.data, 0, sizeof(TestBinUnit));
 

@@ -152,11 +152,11 @@ int TestBinData::GetTxtGnss(TxtGnssData &gnssT)
 */
 int TestBinData::GetTxtDmi(TxtDmiData &dmiT)
 {
-	data.dmiStatus = dmiT.status;
-	data.dmi1 = dmiT.dmi1;
-	data.dmi2 = dmiT.dmi2;
-	data.dmi3 = dmiT.dmi3;
-	data.dmi4 = dmiT.dmi4;
+	data.dmiStatus = dmiT.status[0];
+	data.dmi1 = dmiT.dmi1[0];
+	data.dmi2 = dmiT.dmi2[0];
+	data.dmi3 = dmiT.dmi3[0];
+	data.dmi4 = dmiT.dmi4[0];
 
 	data.ucState_gnss = data.ucState_gnss | 0x08;
 	
