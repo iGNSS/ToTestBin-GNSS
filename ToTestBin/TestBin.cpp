@@ -152,11 +152,27 @@ int TestBinData::GetTxtGnss(TxtGnssData &gnssT)
 */
 int TestBinData::GetTxtDmi(TxtDmiData &dmiT)
 {
+#if  1
+	double t = floor(dmiT.time[0] + 0.01);
+	double t0 = dmiT.time[0];
+	double t1 = dmiT.time[1];
+
+	double dt = t0 - t1;
+	double c0 = (t - t1) / dt;
+	double c1 = (t0 - t) / dt;
+
+	data.dmiStatus = dmiT.status[0];
+	data.dmi1 = c0 * dmiT.dmi1[0] + c1 * dmiT.dmi1[1];
+	data.dmi2 = c0 * dmiT.dmi2[0] + c1 * dmiT.dmi2[1];
+	data.dmi3 = c0 * dmiT.dmi3[0] + c1 * dmiT.dmi3[1];
+	data.dmi4 = c0 * dmiT.dmi4[0] + c1 * dmiT.dmi4[1];
+#else
 	data.dmiStatus = dmiT.status[0];
 	data.dmi1 = dmiT.dmi1[0];
 	data.dmi2 = dmiT.dmi2[0];
 	data.dmi3 = dmiT.dmi3[0];
 	data.dmi4 = dmiT.dmi4[0];
+#endif
 
 	data.ucState_gnss = data.ucState_gnss | 0x08;
 	

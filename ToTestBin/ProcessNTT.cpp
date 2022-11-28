@@ -70,7 +70,7 @@ int ProcessNTT::Process()
 
 		////IMU数据时间
 		double sec1 = gnssT.sec;
-		double sec2 = dmiT.time[0];
+		double sec2 = floor(dmiT.time[0] + 0.01);
 
 		memset(&testBin.data, 0, sizeof(TestBinUnit));
 
@@ -102,10 +102,10 @@ int ProcessNTT::Process()
 			}
 
 			//DMI数据赋给TESTBIN
-			if (dmiEnable && (sec2 <= testBin.sec0) && (sec2 > testBin.sec1))
+			if (dmiEnable && (testBin.sec0 == floor(sec2)) )
 			{
 				testBin.GetTxtDmi(dmiT);
-				//cout << fixed << setprecision(3) << testBin.sec0 << "   " << setprecision(3) << sec1 << "   " << setprecision(3) << sec2 << endl;
+				cout << fixed << setprecision(3) << testBin.sec0 << "   " << setprecision(3) << sec1 << "   " << setprecision(3) << floor(sec2) << endl;
 				needRead[2] = 1;
 			}
 

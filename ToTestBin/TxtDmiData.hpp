@@ -21,6 +21,8 @@ public:
 	double				dmi4[TXT_DMI_LIST_N];
 	int					status[TXT_DMI_LIST_N];
 
+	double				timeOut;
+
 	TxtDmiData();
 	~TxtDmiData();
 	int OpenFile();

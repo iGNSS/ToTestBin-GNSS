@@ -99,7 +99,7 @@ int TxtDmiData::GetData()
 	{
 		for (int i = 1; i < TXT_DMI_LIST_N; i++)
 		{
-			time[i] = time[0];
+			time[i] = time[0] - i;
 			dmi1[i] = dmi1[0];
 			dmi2[i] = dmi2[0];
 			dmi3[i] = dmi3[0];
