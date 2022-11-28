@@ -27,42 +27,32 @@ int TestBinData::GetNovatelImu(NovatelImuData &imuN)
 {
 	if (imuN.imus.update || imuN.imusx.update)
 	{
-		if (imuN.sec[0] >= 116261.275)
+		if (imuN.sec[0] >= 117110.34)
 			sec1 *= 1.0;
 
-		sec1 = sec0;
 #if 1
-		double					sec;
-		double					gyrox;
-		double					gyroy;
-		double					gyroz;
-		double					accx;
-		double					accy;
-		double					accz;
+		int tmpN1 = floor((imuN.sec[0]) * 200);
+		int tmpN2 = floor((imuN.sec[1]) * 200);
+		imuUpdateCnt = tmpN1 - tmpN2;
 
-		int tmpN = floor((imuN.sec[0]) * 200);
-		sec = tmpN * 0.005;
-		double c0, c1;
-		if (imuN.sec[0] ==sec)
+		if (imuUpdateCnt >= 2)
+			imuUpdateCnt *= 1.0;
+
+		for (int i = 0; i < imuUpdateCnt; i++)
 		{
-			c0 = 1.0; c1 = 0;
-		}
-		else
-		{
+			sec[i] = (tmpN1-i) * 0.005;
+			double c0, c1;
 			double dt = imuN.sec[0] - imuN.sec[1];
-			c0 = (sec - imuN.sec[1]) / dt;
-			c1 = (imuN.sec[0] - sec) / dt;
+			c0 = (sec[i] - imuN.sec[1]) / dt;
+			c1 = (imuN.sec[0] - sec[i]) / dt;
+			week[i] = imuN.week[0];
+			gyrox[i] = c0 * imuN.gyrox[0] + c1 * imuN.gyrox[1];
+			gyroy[i] = c0 * imuN.gyroy[0] + c1 * imuN.gyroy[1];
+			gyroz[i] = c0 * imuN.gyroz[0] + c1 * imuN.gyroz[1];
+			accx[i] = c0 * imuN.accx[0] + c1 * imuN.accx[1];
+			accy[i] = c0 * imuN.accy[0] + c1 * imuN.accy[1];
+			accz[i] = c0 * imuN.accz[0] + c1 * imuN.accz[1];
 		}
-
-		sec0 = sec;
-		data.nWeek = imuN.week[0];
-		data.dSec_gnss = sec;
-		data.dGyrox = c0 * imuN.gyrox[0] + c1 * imuN.gyrox[1];
-		data.dGyroy = c0 * imuN.gyroy[0] + c1 * imuN.gyroy[1];
-		data.dGyroz = c0 * imuN.gyroz[0] + c1 * imuN.gyroz[1];
-		data.dAccx = c0 * imuN.accx[0] + c1 * imuN.accx[1];
-		data.dAccy = c0 * imuN.accy[0] + c1 * imuN.accy[1];
-		data.dAccz = c0 * imuN.accz[0] + c1 * imuN.accz[1];
 #else
 		sec0 = imuN.sec[0];
 		sec1 = imuN.sec[1];
@@ -122,7 +112,6 @@ int TestBinData::GetNovatelGnss(NovatelGnssData &gnssN)
 		data.dGnssVel_valid = 1;
 	}
 
-
 	data.ucState_gnss = data.ucState_gnss | 0x03;
 	data.ucFlag_synchro = 160;
 
@@ -163,15 +152,11 @@ int TestBinData::GetTxtGnss(TxtGnssData &gnssT)
 */
 int TestBinData::GetTxtDmi(TxtDmiData &dmiT)
 {
-#if 0
-
-#else 
-	data.dmiStatus = dmiT.status[0];
-	data.dmi1 = dmiT.dmi1[0];
-	data.dmi2 = dmiT.dmi2[0];
-	data.dmi3 = dmiT.dmi3[0];
-	data.dmi4 = dmiT.dmi4[0];
-#endif
+	data.dmiStatus = dmiT.status;
+	data.dmi1 = dmiT.dmi1;
+	data.dmi2 = dmiT.dmi2;
+	data.dmi3 = dmiT.dmi3;
+	data.dmi4 = dmiT.dmi4;
 
 	data.ucState_gnss = data.ucState_gnss | 0x08;
 	

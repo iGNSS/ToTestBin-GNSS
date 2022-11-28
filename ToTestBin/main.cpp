@@ -78,7 +78,7 @@ int funOther()
 
 int main()
 {
-	NT_Slect nt = NTT;
+	NT_Slect nt = NNT;
 	switch (nt)
 	{
 	case NNN:
@@ -99,6 +99,7 @@ int main()
 
 	case OTHER:
 		funOther();
+		break;
 
 	default:
 		break;

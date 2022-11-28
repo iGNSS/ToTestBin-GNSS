@@ -77,8 +77,8 @@ int NovatelGnssData::Check()
 					bestPosHaved = 0;
 			}
 
-			if (bestPosHaved || bestPosHaved)
-				break;
+			//if (bestPosHaved || bestPosHaved)
+			//	break;
 		}
 	}
 

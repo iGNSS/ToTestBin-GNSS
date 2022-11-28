@@ -10,12 +10,13 @@
 #include "NovatelDmiData.hpp"
 #include "TxtDmiData.hpp"
 
+#define TESTBIN_LIST_N		4
+
 struct TestBinUnit
 {
 	// 以下信息来自BESTPOS BESTVEL
 	unsigned int	nWeek;							// 周数，单位：周
 	double			dSec_gnss;						// 周秒，单位：秒
-	double			dSec_gnss1;
 
 	// 以下信息来自BestPos
 	double			dLat_gnss;						// 纬度，单位：度
@@ -87,9 +88,19 @@ public:
 	string						file;
 	FILE						*fs;
 
-	TestBinUnit					data;
+	TestBinUnit					data;			
 	double						sec0;
 	double						sec1;
+	int							imuUpdateCnt;
+
+	long						week[TESTBIN_LIST_N];
+	double						sec[TESTBIN_LIST_N];
+	double						gyrox[TESTBIN_LIST_N];
+	double						gyroy[TESTBIN_LIST_N];
+	double						gyroz[TESTBIN_LIST_N];
+	double						accx[TESTBIN_LIST_N];
+	double						accy[TESTBIN_LIST_N];
+	double						accz[TESTBIN_LIST_N];
 
 	int					       imuOutEnable;
 	int						   gnssOutEnable;

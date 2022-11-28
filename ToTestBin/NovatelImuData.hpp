@@ -95,6 +95,9 @@ public:
 
 	BagRAWIMUS				imus;
 	BagRAWIMUSX				imusx;
+
+	int						imusHaved;
+	int						imusxHaved;
 	
 	short					week[IMU_LIST_N];
 	double					sec[IMU_LIST_N];
@@ -111,6 +114,7 @@ public:
 	~NovatelImuData();
 	int OpenFile();
 	int CloseFile();
+	int Check();
 	int GetData();
 	int GetRAWIMUS();
 	int GetRAWIMUSX();

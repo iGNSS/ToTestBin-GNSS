@@ -1,16 +1,8 @@
-﻿Build started 2022/11/28 11:45:42.
+﻿Build started 2022/11/28 12:21:42.
      1>Project "D:\src_testbin\ToTestBin\ToTestBin\ToTestBin.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         D:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt TestBin.cpp
-         TestBin.cpp
-     1>d:\src_testbin\totestbin\totestbin\testbin.cpp(43): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-     1>d:\src_testbin\totestbin\totestbin\testbin.cpp(38): warning C4101: 'gyroz': unreferenced local variable
-     1>d:\src_testbin\totestbin\totestbin\testbin.cpp(36): warning C4101: 'gyrox': unreferenced local variable
-     1>d:\src_testbin\totestbin\totestbin\testbin.cpp(40): warning C4101: 'accy': unreferenced local variable
-     1>d:\src_testbin\totestbin\totestbin\testbin.cpp(41): warning C4101: 'accz': unreferenced local variable
-     1>d:\src_testbin\totestbin\totestbin\testbin.cpp(37): warning C4101: 'gyroy': unreferenced local variable
-     1>d:\src_testbin\totestbin\totestbin\testbin.cpp(39): warning C4101: 'accx': unreferenced local variable
-     1>d:\src_testbin\totestbin\totestbin\testbin.cpp(242): warning C4477: 'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'double'
+         D:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
        Link:
          D:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\src_testbin\ToTestBin\Debug\ToTestBin.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"D:\src_testbin\ToTestBin\Debug\ToTestBin.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\src_testbin\ToTestBin\Debug\ToTestBin.lib" /MACHINE:X86 Debug\main.obj
          Debug\NovatelDmiData.obj
@@ -28,4 +20,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.55
+Time Elapsed 00:00:00.71

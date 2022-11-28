@@ -5,7 +5,6 @@
 
 using	namespace  std;
 
-#define		TXT_DMI_LIST_N							2
 
 class TxtDmiData
 {
@@ -14,12 +13,12 @@ public:
 	bool				update;
 	string				line;
 
-	double				time[TXT_DMI_LIST_N];
-	double				dmi1[TXT_DMI_LIST_N];
-	double				dmi2[TXT_DMI_LIST_N];
-	double				dmi3[TXT_DMI_LIST_N];
-	double				dmi4[TXT_DMI_LIST_N];
-	int					status[TXT_DMI_LIST_N];
+	double				time;
+	double				dmi1;
+	double				dmi2;
+	double				dmi3;
+	double				dmi4;
+	int					status;
 
 	TxtDmiData();
 	~TxtDmiData();

@@ -67,7 +67,6 @@ int NovatelDmiData::Check()
 				else
 					dmiaHaved = 0;
 			}
-
 		}
 	}
 	CloseFile();

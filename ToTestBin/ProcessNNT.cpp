@@ -29,6 +29,7 @@ ProcessNNT::~ProcessNNT()
 int ProcessNNT::Process()
 {
 	imuN.OpenFile();
+	imuN.Check();
 	gnssN.OpenFile();
 	gnssN.Check();
 	dmiT.OpenFile();
@@ -70,7 +71,7 @@ int ProcessNNT::Process()
 
 		//IMU数据时间
 		double sec1 = gnssN.bestPos.ms * 0.001;
-		double sec2 = dmiT.time[0];
+		double sec2 = dmiT.time;
 
 		memset(&testBin.data, 0, sizeof(TestBinUnit));
 
@@ -78,30 +79,48 @@ int ProcessNNT::Process()
 		if(imuEnable)
 			testBin.GetNovatelImu(imuN);
 
-		//GNSS数据赋给TESTBIN
-		if (gnssEnable && (sec1 <= testBin.sec0) && (sec1 > testBin.sec1))
+		for (int i = testBin.imuUpdateCnt - 1; i >= 0; i--)
 		{
-			testBin.GetNovatelGnss(gnssN);
-			needRead[1] = 1;
-			//cout << fixed << setprecision(3)<< imuN.sec[0] << "   " << setprecision(3) << sec1 << endl;
-		}
+			testBin.sec1 = testBin.sec0;
+			testBin.sec0 = testBin.sec[i];
 
-		//DMI数据赋给TESTBIN
-		if (dmiEnable && (sec2 <= testBin.sec0) && (sec2 > testBin.sec1))
-		{
-			testBin.GetTxtDmi(dmiT);
-//			cout << fixed << setprecision(3) << imuN.sec[0] << "   " << setprecision(3) << sec1 << endl;
-			needRead[2] = 1;
-		}
-		//if (testBin.sec0 < 116282)
-		//	outEnable = 0;
+			//IMU
+			testBin.data.nWeek = testBin.week[i];
+			testBin.data.dSec_gnss = testBin.sec[i];
+			testBin.data.dGyrox = testBin.gyrox[i];
+			testBin.data.dGyroy = testBin.gyroy[i];
+			testBin.data.dGyroz = testBin.gyroz[i];
+			testBin.data.dAccx = testBin.accx[i];
+			testBin.data.dAccy = testBin.accy[i];
+			testBin.data.dAccz = testBin.accz[i];
+			//GNSS数据赋给TESTBIN
+			if (gnssEnable && (sec1 <= testBin.sec0) && (sec1 > testBin.sec1))
+			{
+				testBin.GetNovatelGnss(gnssN);
+				needRead[1] = 1;
+				//cout << fixed << setprecision(3)<< imuN.sec[0] << "   " << setprecision(3) << sec1 << endl;
+			}
 
-		//输出数据到TestBin
-		testBin.imuOutEnable = imuEnable;
-		testBin.gnssOutEnable = gnssEnable;
-		testBin.dmiOutEnable = dmiEnable;
-		if(outEnable)
-		testBin.WriteData();
+			//DMI数据赋给TESTBIN
+			if (dmiEnable && (sec2 <= testBin.sec0) && (sec2 > testBin.sec1))
+			{
+				testBin.GetTxtDmi(dmiT);
+	//			cout << fixed << setprecision(3) << imuN.sec[0] << "   " << setprecision(3) << sec1 << endl;
+				needRead[2] = 1;
+			}
+
+			//if (testBin.sec0 < 116282)
+			//	outEnable = 0;
+			//else
+			//	outEnable = 1;
+
+			//输出数据到TestBin
+			testBin.imuOutEnable = imuEnable;
+			testBin.gnssOutEnable = gnssEnable;
+			testBin.dmiOutEnable = dmiEnable;
+			if(outEnable)
+				testBin.WriteData();
+		}
 	}
 
 	return 0;

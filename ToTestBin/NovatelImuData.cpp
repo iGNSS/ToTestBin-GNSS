@@ -40,6 +40,67 @@ int NovatelImuData::CloseFile()
 	return 0;
 }
 
+int NovatelImuData::Check()
+{
+	char buff[10] = { 0 };
+	int  buffN = 0;
+	int  imusi = 0;
+	int  imusxi = 0;
+
+	while (1)
+	{
+		buffN = fread(buff, 1, 1, fs); if (buffN <= 0)break;
+
+		sync[0] = sync[1];
+		sync[1] = sync[2];
+		sync[2] = buff[0];
+
+		if (sync[0] == 0xaa && sync[1] == 0x44 && sync[2] == 0x13)
+		{
+			buffN = fread(&HeaderLength, 1, 1, fs); if (buffN <= 0)return 1;
+			buffN = fread(&MessageID, 2, 1, fs); if (buffN <= 0)return 1;
+			if (MessageID == 325)
+			{
+				imusi++;
+				if (imusi >= 60)
+					imusHaved = 1;
+				else
+					imusHaved = 0;
+			}
+			else if (MessageID == 1462)
+			{
+				imusxi++;
+				if (imusxi >= 60)
+					imusxHaved = 1;
+				else
+					imusxHaved = 0;
+			}
+
+			//if (imusxHaved || imusxHaved)
+			//	break;
+		}
+	}
+
+
+	if (imusxHaved)
+	{
+		cout << "IMU使用RAWIMUSXA数据包！" << endl;
+		imusHaved = 0;
+	}
+	else
+	{
+		if(imusHaved)
+			cout << "IMU使用RAWIMUSA数据包！" << endl;
+		else
+			cout << "IMU数据不足！" << endl;
+	}
+
+	CloseFile();
+	OpenFile();
+
+	return 0;
+}
+
 int NovatelImuData::GetData()
 {
 	char buff[10] = {0};
